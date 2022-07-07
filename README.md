@@ -56,3 +56,20 @@ When setting up the routing, I was struggling to set it up, running into various
 I finally got it functioning once I got a chance to read over the usage. I abstracted my components to the structure I wanted.
 
 After getting the routing completed. I fixed up the css a little and added some basic animations to give it some interactivity.
+
+After making a fetch request to get a list of currencies, I was able to pass the state to my components. There is some difficulty in trying to find the selected value and lifting the state up.
+
+It took me a bit to figure out how bubbling state is done, but once I did I got a few of the components working.
+Some things that I still want to do.
+
+1. Chart Feature
+2. Connect hrefs to footer icons
+3. Button animation
+4. Autoload on exchange rate tab Amount = 1 Currency = USD
+5. DataTable Sort Buttons
+6. Flag images for currency icons
+7. Load component animations
+8. Change tabs to single page on lg screens
+9. Change amount to currency symbol
+10. Change converted total to be a Symbol with numeric value, currency code minified
+11. Add title to page

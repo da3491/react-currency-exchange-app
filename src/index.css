@@ -27,7 +27,6 @@ code {
 
 #root {
   height: 100vh;
-  overflow: hidden;
 }
 
 #switch {
@@ -56,6 +55,10 @@ ul.nav-tabs li.nav-link:active {
 select,
 input {
   height: 40px;
+}
+
+.table-responsive {
+  max-height: 60vh;
 }
 
 /* Chrome, Safari, Edge, Opera */
