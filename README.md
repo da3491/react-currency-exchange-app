@@ -51,8 +51,22 @@ _Structure_
 
 _Obstacles_
 
-When setting up the routing, I was struggling to set it up, running into various errors until I came to find the docs I was referred to were a version behind.
+When first building out the components and structure, it took me a bit to figure out bubbling state and setting up the routes. I began to notice that there was a lot of code being passed as props to child components, leading me to believe that perhaps I shouldnt hold so much code in that one file. Ideally I want to try to break processes into seperate files and import/export as needed.
 
-I finally got it functioning once I got a chance to read over the usage. I abstracted my components to the structure I wanted.
+This left me with some questions:
 
-After getting the routing completed. I fixed up the css a little and added some basic animations to give it some interactivity.
+1. Should there be one main component that contains state and passes it as props?
+   -To minimize the amount of state being passed as props, it makes sense to me to have separate api files for components to import from and pass on to sub components.
+
+2. How to set up api files.
+   -How do I handle an array of promises and then store data to export?
+   -How do I make fetch calls from an external component file?
+
+3. Given this supposed structure, when will I need to make use of async/await?
+
+4. App{mainly houses components and stylings}
+   1. Converter {imports initial state from api file, get requests to update data, passes props}
+      1. Selector {imports props, and onchange functions}
+      2. Selector {imports props, and onchange functions}
+   2. DataChart {imports initial state}
+   3. DataTable {imports Chart.js}

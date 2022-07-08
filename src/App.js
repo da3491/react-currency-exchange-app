@@ -2,6 +2,11 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 
+// additional APIS
+// https://www.frankfurter.app/docs/
+// https://www.chartjs.org/docs/latest/getting-started/
+// https://restcountries.com/#api-endpoints-v3-code
+
 // Components
 import NavBar from "./components/NavBar";
 import CurrencyConverter from "./components/CurrencyConverter";
@@ -23,17 +28,16 @@ class App extends React.Component {
     this.state = {
       currencies: [],
       currency1: "USD",
-      currency2: "GBP",
+      currency2: "AUD",
+      amount: 1,
       conversionRates: [],
       convertedValue: "",
-      chartData: [],
     };
 
-    this.changeCurrency = this.changeCurrency.bind(this);
-    this.switchButton = this.switchButton.bind(this);
     this.getRates = this.getRates.bind(this);
     this.getConversion = this.getConversion.bind(this);
-    this.getFlagImg = this.getFlagImg.bind(this);
+    this.changeCurrency = this.changeCurrency.bind(this);
+    this.switchButton = this.switchButton.bind(this);
   }
 
   componentDidMount() {
@@ -43,30 +47,10 @@ class App extends React.Component {
       .then((data) => {
         this.setState({ currencies: data.rates });
       });
-    // Promise.all([
-    //   fetch(`https://altexchangerateapi.herokuapp.com/latest`),
-    //   fetch(`https://altexchangerateapi.herokuapp.com/currencies`),
-    // ])
-    //   .then(checkStatus)
-    //   .then(json)
-    //   .then(([res1, res2]) => {
-    //     this.setState({ currencies: res1.rates, symbols: res2 });
-    //   });
+    this.getRates("USD");
   }
 
-  // Can go
-  changeCurrency(selectCur, value) {
-    this.setState({ [selectCur]: value });
-  }
-
-  // Can go
-  switchButton(cur1, cur2) {
-    this.setState({
-      currency1: cur2,
-      currency2: cur1,
-    });
-  }
-
+  // Fetch call for rates based on selected currency
   getRates(givenCurrency) {
     fetch(
       `https://altexchangerateapi.herokuapp.com/latest?from=${givenCurrency}`
@@ -78,50 +62,52 @@ class App extends React.Component {
       });
   }
 
-  getConversion(amount) {
-    this.getRates(this.state.currency1);
-    let rate = Number(this.state.conversionRates[this.state.currency2]).toFixed(
-      2
-    );
+  // Does not work
+  // Finds the rate based on currency1 and provided currency2
+  getConversion(amount, currency2) {
+    console.log(amount, currency2);
+    let rate = Number(this.state.conversionRates[currency2]).toFixed(2);
     this.setState({ convertedValue: amount * rate });
   }
 
-  getChartData() {
-    fetch(`https://altexchangerateapi.herokuapp.com/2022-06-01..`)
-      .then(checkStatus)
-      .then(json)
-      .then((data) => {
-        this.setState({ chartData: data });
-      });
+  // Updates selected currencies
+  changeCurrency(value, selectCur = "currency1") {
+    this.setState({ [selectCur]: value });
   }
 
-  async getFlagImg(src) {
-    await fetch(`https://restcountries.com/v3.1/alpha/${src}`)
-      .then(checkStatus)
-      .then(json)
-      .then((data) => {
-        return data[0].flags.png;
-      });
+  // Switches selected currencies
+  switchButton(cur1, cur2) {
+    this.setState({
+      currency1: cur2,
+      currency2: cur1,
+    });
   }
-
-  renderFlagImg() {}
 
   render() {
+    const {
+      currencies,
+      currency1,
+      currency2,
+      amount,
+      convertedValue,
+      conversionRates,
+    } = this.state;
+
     const ConvertTab = () => {
       return (
         <div className="my-5">
           <CurrencyConverter
-            currencies={this.state.currencies}
-            currency1={this.state.currency1}
-            currency2={this.state.currency2}
-            convertedValue={this.state.convertedValue}
+            currencies={currencies}
+            currency1={currency1}
+            currency2={currency2}
+            amount={amount}
+            convertedValue={convertedValue}
             changeCurrency={this.changeCurrency}
-            switchButton={this.switchButton}
-            convertCurrency={this.convertCurrency}
+            getRates={this.getRates}
             getConversion={this.getConversion}
-            getFlagImg={this.getFlagImg}
+            switchButton={this.switchButton}
           />
-          <DataChart chartData={this.state.chartData} />
+          <DataChart />
         </div>
       );
     };
@@ -136,9 +122,14 @@ class App extends React.Component {
             path="exchange_rates"
             element={
               <DataTable
+                currencies={currencies}
+                currency1={currency1}
+                amount={amount}
+                convertedValue={convertedValue}
+                conversionRates={conversionRates}
+                changeCurrency={this.changeCurrency}
+                getConversion={this.getConversion}
                 getRates={this.getRates}
-                currencies={this.state.currencies}
-                conversionRates={this.state.conversionRates}
               />
             }
           ></Route>
@@ -150,4 +141,3 @@ class App extends React.Component {
 }
 
 export default App;
-git;

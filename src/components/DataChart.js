@@ -4,7 +4,7 @@
 // const ctx = $("#graph");
 // const myChart = new Chart(ctx, { data });
 
-const Graph = () => {
+const DataChart = () => {
   return (
     <div className="container bg-light rounded my-3">
       <canvas id="chart" width="400"></canvas>
@@ -12,4 +12,4 @@ const Graph = () => {
   );
 };
 
-export default Graph;
+export default DataChart;
