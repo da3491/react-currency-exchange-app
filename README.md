@@ -37,36 +37,23 @@ _Development Stages_
 
 _Structure_
 
-1. App
+1. App {holds state, fetch calls, setState functions}
    1. Navbar
       1. Routes
          1. Route path: Convert Tab
          2. Route path: Exchange Rate Tab
    2. Convert Tab
       1. CurrencyConverter
+         1. Selector
+         2. Selector
       2. Graph
    3. Exchange Rate Tab
       1. DataTable
    4. Footer
 
-_Obstacles_
+_Known Issues_
 
-When first building out the components and structure, it took me a bit to figure out bubbling state and setting up the routes. I began to notice that there was a lot of code being passed as props to child components, leading me to believe that perhaps I shouldnt hold so much code in that one file. Ideally I want to try to break processes into seperate files and import/export as needed.
-
-This left me with some questions:
-
-1. Should there be one main component that contains state and passes it as props?
-   -To minimize the amount of state being passed as props, it makes sense to me to have separate api files for components to import from and pass on to sub components.
-
-2. How to set up api files.
-   -How do I handle an array of promises and then store data to export?
-   -How do I make fetch calls from an external component file?
-
-3. Given this supposed structure, when will I need to make use of async/await?
-
-4. App{mainly houses components and stylings}
-   1. Converter {imports initial state from api file, get requests to update data, passes props}
-      1. Selector {imports props, and onchange functions}
-      2. Selector {imports props, and onchange functions}
-   2. DataChart {imports initial state}
-   3. DataTable {imports Chart.js}
+1. Switch currency button will show NaN after a couple presses
+2. No graph functionality yet
+3. Changing the amount on Exchange Rate tab does not change the column for rates
+4. Table overflows past end of page

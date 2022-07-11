@@ -7,7 +7,7 @@
 //     .then(checkStatus)
 //     .then(json)
 //     .then((data) => {
-//       return (apiData.currencies = data);
+//       return (apiData.currencies = data.rates);
 //     });
 // };
 

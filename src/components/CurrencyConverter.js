@@ -1,22 +1,4 @@
-const CurrencySelector = (props) => {
-  const { id, selected, currencies, changeCurrency } = props;
-
-  return (
-    <select
-      className="form-select col shadow-sm border-0"
-      value={selected}
-      onChange={(e) => changeCurrency(e.target.value, id)}
-    >
-      {Object.keys(currencies).map((option) => {
-        return (
-          <option value={option} key={option}>
-            {option}
-          </option>
-        );
-      })}
-    </select>
-  );
-};
+import CurrencySelector from "./CurrencySelector";
 
 const CurrencyConverter = (props) => {
   const {
@@ -37,6 +19,7 @@ const CurrencyConverter = (props) => {
       className="container col border rounded bg-light px-4 py-4 mt-5 "
     >
       <div className="row">
+        {/* CurrencySelector */}
         <div className="row col-md-5 align-items-center mx-auto">
           <CurrencySelector
             id="currency1"
@@ -45,17 +28,21 @@ const CurrencyConverter = (props) => {
             changeCurrency={changeCurrency}
           />
         </div>
+        {/* Switch Button */}
         <button
           id="switch"
           className="btn btn-sm border rounded col-md- mx-auto my-3 shadow-sm"
           onClick={() => {
             switchButton(currency1, currency2);
+            // value of currency1 after swapping
+            console.log("after again: " + currency1, currency2);
             getRates(currency1);
-            getConversion(amount, currency2);
+            getConversion(currency2, amount);
           }}
         >
           <i className="fa-solid fa-arrow-right-arrow-left fs-5"></i>
         </button>
+        {/* CurrencySelector */}
         <div className="row col-md-5 align-items-center mx-auto">
           <CurrencySelector
             id="currency2"
@@ -67,19 +54,22 @@ const CurrencyConverter = (props) => {
         </div>
       </div>
       <hr className="my-4" />
+      {/* Section for Chart */}
       <div className="row fw-bold text-center text-dark">
-        <div className="d-flex col-md-8 mb-3">
-          <div className="col-6 col-md-6 h3">Amount</div>
+        <form className="d-flex col-md-8 mb-3">
+          <label className="col-6 col-md-6 h3 form-label">Amount</label>
           <input
-            className="col-6 col-md-6 border-0 shadow-sm text-end px-3 fs-3"
+            className="col-6 col-md-6 border-0 shadow-sm text-end px-3 fs-4"
             type="number"
-            value={amount}
             onChange={(e) => {
-              getRates(currency1);
-              getConversion(e.target.value, currency2);
+              setTimeout(() => {
+                e.preventDefault();
+                getRates(currency1);
+                getConversion(currency2, e.target.value);
+              }, 1000);
             }}
           />
-        </div>
+        </form>
         <div className="col-md-4 h2 fw-bold">
           {convertedValue} {currency2}
         </div>

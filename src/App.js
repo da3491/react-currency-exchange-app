@@ -18,6 +18,7 @@ const checkStatus = (response) => {
   if (response.ok) {
     return response;
   }
+  console.log(response);
   throw new Error("Request was either a 404 or a 500");
 };
 const json = (response) => response.json();
@@ -28,8 +29,8 @@ class App extends React.Component {
     this.state = {
       currencies: [],
       currency1: "USD",
-      currency2: "AUD",
-      amount: 1,
+      currency2: "GBP",
+      amount: "",
       conversionRates: [],
       convertedValue: "",
     };
@@ -37,21 +38,38 @@ class App extends React.Component {
     this.getRates = this.getRates.bind(this);
     this.getConversion = this.getConversion.bind(this);
     this.changeCurrency = this.changeCurrency.bind(this);
+    this.changeAmount = this.changeAmount.bind(this);
     this.switchButton = this.switchButton.bind(this);
   }
 
   componentDidMount() {
-    fetch(`https://altexchangerateapi.herokuapp.com/latest`)
+    // Promise.all([
+    //   fetch(`https://altexchangerateapi.herokuapp.com/latest?from=USD`),
+    //   fetch(`https://altexchangerateapi.herokuapp.com/latest`),
+    // ]).then((results) => {
+    //   results.forEach((request) => {
+    //     checkStatus(request);
+    //     json(request);
+    //   });
+    // }).then(([res1, res2]) => {
+    //   this.setState({currencies: res1.rates, })
+    // });
+    fetch(
+      `https://altexchangerateapi.herokuapp.com/latest?from=${this.state.currency1}`
+    )
       .then(checkStatus)
       .then(json)
       .then((data) => {
         this.setState({ currencies: data.rates });
       });
-    this.getRates("USD");
+    this.getRates(this.state.currency1);
+    this.getConversion(1, this.state.currency2);
   }
 
   // Fetch call for rates based on selected currency
   getRates(givenCurrency) {
+    // Issue: The value passed is incorrect and should have been swapped.
+    console.log("getting rates for: " + givenCurrency);
     fetch(
       `https://altexchangerateapi.herokuapp.com/latest?from=${givenCurrency}`
     )
@@ -60,27 +78,45 @@ class App extends React.Component {
       .then((data) => {
         this.setState({ conversionRates: data.rates });
       });
-  }
-
-  // Does not work
-  // Finds the rate based on currency1 and provided currency2
-  getConversion(amount, currency2) {
-    console.log(amount, currency2);
-    let rate = Number(this.state.conversionRates[currency2]).toFixed(2);
-    this.setState({ convertedValue: amount * rate });
+    // console.log(this.state.conversionRates);
   }
 
   // Updates selected currencies
   changeCurrency(value, selectCur = "currency1") {
     this.setState({ [selectCur]: value });
+    console.log(this.state[selectCur] + " changed to: " + value);
+  }
+
+  changeAmount(newAmount) {
+    this.setState({ amount: newAmount });
+  }
+
+  // Finds the rate based on currency1 and provided currency2
+  // Issue: Does not work
+  getConversion(currency2, givenAmount = 1) {
+    // Used in Converter and Table
+
+    let rate = Number(this.state.conversionRates[currency2]).toFixed(2);
+    this.setState({ amount: givenAmount, convertedValue: givenAmount * rate });
   }
 
   // Switches selected currencies
   switchButton(cur1, cur2) {
-    this.setState({
-      currency1: cur2,
-      currency2: cur1,
-    });
+    // Issue: Does not indicate change in logs after setting state to swapped values. Yet it shows in DOM.
+    console.log("before: " + this.state.currency1, this.state.currency2);
+    // This shows the same results
+    let temp = cur1;
+    cur1 = cur2;
+    cur2 = temp;
+    // this.setState({
+    //   currency1: cur2,
+    //   currency2: cur1,
+    // });
+    console.log("cur2: " + cur2);
+    this.setState({ currency1: cur2 });
+    console.log(this.state.currency1);
+    this.setState({ currency2: temp });
+    console.log("after: " + this.state.currency1, this.state.currency2);
   }
 
   render() {
@@ -115,6 +151,7 @@ class App extends React.Component {
     return (
       <div className="container-md">
         <NavBar />
+        <h2 className="text-center fw-bold my-4">Currency Converter</h2>
         <Routes>
           <Route path="/" element={<ConvertTab to="convert" />}></Route>
           <Route path="convert" element={<ConvertTab />}></Route>
@@ -128,6 +165,7 @@ class App extends React.Component {
                 convertedValue={convertedValue}
                 conversionRates={conversionRates}
                 changeCurrency={this.changeCurrency}
+                changeAmount={this.changeAmount}
                 getConversion={this.getConversion}
                 getRates={this.getRates}
               />

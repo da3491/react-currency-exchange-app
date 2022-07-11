@@ -1,3 +1,5 @@
+import CurrencySelector from "./CurrencySelector";
+
 const DataTable = (props) => {
   const {
     currencies,
@@ -8,62 +10,52 @@ const DataTable = (props) => {
     getRates,
     getConversion,
     changeCurrency,
+    changeAmount,
   } = props;
 
   return (
-    <div id="page-2" className="my-5">
-      <div className="container">
-        <div className="row bg-light rounded py-3">
-          <div className="row col-md-6 my-2 align-items-center">
-            <div className="col-4 fw-bold text-end text-ali" value={amount}>
-              Amount
-            </div>
-            <input className="col-8 border-0 shadow-sm" type="number" />
+    <div id="page-2" className="my-5 container">
+      <div className="row bg-light rounded py-3">
+        <div className="row col-md-6 my-2 align-items-center">
+          <div className="col-4 fw-bold text-end text-ali" value={amount}>
+            Amount
           </div>
-          <div className="row col-md-6 my-2 align-items-center">
-            <div className="col-4 fw-bold text-end">Currency</div>
-            <select
-              className="col-8 border-0 shadow-sm"
-              value={currency1}
-              onChange={(e) => {
-                changeCurrency(e.target.value);
-                getRates(e.target.value);
-                getConversion(amount, currency1);
-              }}
-            >
-              {Object.keys(currencies).map((option) => {
-                return (
-                  <option value={option} key={option}>
-                    {option}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
+          <input
+            className="col-8 border-0 shadow-sm"
+            type="number"
+            onChange={(e) => changeAmount(e.target.value)}
+          />
+        </div>
+        {/* Currency Selector */}
+        <div className="row col-md-6 my-2 align-items-center">
+          <div className="col-4 fw-bold text-end">Currency</div>
+          <CurrencySelector
+            selected={currency1}
+            currencies={currencies}
+            changeCurrency={changeCurrency}
+          />
         </div>
       </div>
-      <div className="container">
-        <div className="row bg-light rounded py-3 my-3">
-          <table className="table table-striped">
-            <thead>
-              <tr className="text-center">
-                <th>Currency</th>
-                <th>Exchange Rate</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.entries(conversionRates).forEach((rate) => {
-                // getConversion(amount, rate[0]);
-                return (
-                  <tr className="text-center" key={rate[0]}>
-                    <td>{rate[0]}</td>
-                    <td>{convertedValue}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+      {/* Table Section */}
+      <div className="row bg-light rounded py-3 my-3">
+        <table className="table table-striped">
+          <thead>
+            <tr className="text-center">
+              <th>Currency</th>
+              <th>Exchange Rate</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.entries(conversionRates).map((rate) => {
+              return (
+                <tr className="text-center" key={rate[0]}>
+                  <td>{rate[0]}</td>
+                  <td>{rate[1]}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
     </div>
   );
