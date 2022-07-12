@@ -53,8 +53,10 @@ _Structure_
 
 _Known Issues_
 
-1. Exchange Rate Tab does not Update on Amount change, similar useEffect in CurrencyConverter does work though.
+1. Exchange Rate Tab does not Update on Amount change, similar useEffect in CurrencyConverter does work though. It is reading the changed value of the input as a string. Does not seem to do anything different if I try to convert it to a Number().
 
 2. Table overflows past end of page, used bootstrap 5's overflow-auto on various container div's in DataTable to fix but does not register any of them. Tried to set a max height on the table and does not work either.
 
-3. No graph functionality yet
+3. On window load, the Amount variable shows in the DOM as NaN, and then loads actual value.
+
+4. No graph functionality yet
