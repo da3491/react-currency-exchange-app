@@ -1,21 +1,34 @@
+import React, { useState, useEffect } from "react";
 import CurrencySelector from "./CurrencySelector";
 
-const DataTable = (props) => {
-  const {
-    currencies,
-    currency1,
-    amount,
-    convertedValue,
-    conversionRates,
-    getRates,
-    getConversion,
-    changeCurrency,
-    changeAmount,
-  } = props;
+const checkStatus = (response) => {
+  if (response.ok) {
+    return response;
+  }
+  console.log(response);
+  throw new Error("Request was either a 404 or a 500");
+};
+const json = (response) => response.json();
+
+const DataTable = () => {
+  let [amount, setAmount] = useState(1);
+  let [currency1, setCurrency1] = useState("USD");
+  let [conversionRates, setConversionRates] = useState({});
+
+  useEffect(() => {
+    fetch(`https://altexchangerateapi.herokuapp.com/latest?from=${currency1}`)
+      .then(checkStatus)
+      .then(json)
+      .then((data) => {
+        console.log(amount);
+        setConversionRates(data.rates);
+      });
+  }, [currency1, amount]);
 
   return (
     <div id="page-2" className="my-5 container">
       <div className="row bg-light rounded py-3">
+        {/* Amount Selector */}
         <div className="row col-md-6 my-2 align-items-center">
           <div className="col-4 fw-bold text-end text-ali" value={amount}>
             Amount
@@ -23,16 +36,17 @@ const DataTable = (props) => {
           <input
             className="col-8 border-0 shadow-sm"
             type="number"
-            onChange={(e) => changeAmount(e.target.value)}
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
           />
         </div>
         {/* Currency Selector */}
         <div className="row col-md-6 my-2 align-items-center">
           <div className="col-4 fw-bold text-end">Currency</div>
           <CurrencySelector
-            selected={currency1}
-            currencies={currencies}
-            changeCurrency={changeCurrency}
+            id={currency1}
+            value={currency1}
+            changeCurrency={setCurrency1}
           />
         </div>
       </div>

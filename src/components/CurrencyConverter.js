@@ -1,17 +1,44 @@
+import React, { useState, useEffect } from "react";
 import CurrencySelector from "./CurrencySelector";
 
-const CurrencyConverter = (props) => {
-  const {
-    currencies,
-    currency1,
-    currency2,
-    amount,
-    convertedValue,
-    getRates,
-    getConversion,
-    switchButton,
-    changeCurrency,
-  } = props;
+const checkStatus = (response) => {
+  if (response.ok) {
+    return response;
+  }
+  console.log(response);
+  throw new Error("Request was either a 404 or a 500");
+};
+const json = (response) => response.json();
+
+const CurrencyConverter = () => {
+  let [currency1, setCurrency1] = useState("USD");
+  let [currency2, setCurrency2] = useState("GBP");
+  let [amount, setAmount] = useState(1);
+  let [conversionRates, setConversionRates] = useState({});
+  let [convertedValue, setConvertedValue] = useState(1);
+
+  useEffect(() => {
+    fetch(`https://altexchangerateapi.herokuapp.com/latest?from=${currency1}`)
+      .then(checkStatus)
+      .then(json)
+      .then((data) => {
+        setConversionRates(data.rates);
+      })
+      .then(getConversion(currency2, amount));
+  }, [currency1, currency2, amount]);
+
+  const switchButton = () => {
+    let temp = currency1;
+    setCurrency1(currency2);
+    setCurrency2(temp);
+  };
+
+  const getConversion = (currency2, givenAmount = 1) => {
+    // Used in Converter and Table
+    console.log(conversionRates[currency2]);
+    let rate = Number(conversionRates[currency2]);
+    setConvertedValue(givenAmount * rate);
+  };
 
   return (
     <div
@@ -23,22 +50,15 @@ const CurrencyConverter = (props) => {
         <div className="row col-md-5 align-items-center mx-auto">
           <CurrencySelector
             id="currency1"
-            selected={currency1}
-            currencies={currencies}
-            changeCurrency={changeCurrency}
+            value={currency1}
+            changeCurrency={setCurrency1}
           />
         </div>
         {/* Switch Button */}
         <button
           id="switch"
           className="btn btn-sm border rounded col-md- mx-auto my-3 shadow-sm"
-          onClick={() => {
-            switchButton(currency1, currency2);
-            // value of currency1 after swapping
-            console.log("after again: " + currency1, currency2);
-            getRates(currency1);
-            getConversion(currency2, amount);
-          }}
+          onClick={() => switchButton()}
         >
           <i className="fa-solid fa-arrow-right-arrow-left fs-5"></i>
         </button>
@@ -46,28 +66,21 @@ const CurrencyConverter = (props) => {
         <div className="row col-md-5 align-items-center mx-auto">
           <CurrencySelector
             id="currency2"
-            selected={currency2}
-            currencies={currencies}
-            changeCurrency={changeCurrency}
-            onChange={() => getRates(currency1)}
+            value={currency2}
+            changeCurrency={setCurrency2}
           />
         </div>
       </div>
       <hr className="my-4" />
-      {/* Section for Chart */}
+      {/* Section for Amount Input */}
       <div className="row fw-bold text-center text-dark">
         <form className="d-flex col-md-8 mb-3">
           <label className="col-6 col-md-6 h3 form-label">Amount</label>
           <input
             className="col-6 col-md-6 border-0 shadow-sm text-end px-3 fs-4"
             type="number"
-            onChange={(e) => {
-              setTimeout(() => {
-                e.preventDefault();
-                getRates(currency1);
-                getConversion(currency2, e.target.value);
-              }, 1000);
-            }}
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
           />
         </form>
         <div className="col-md-4 h2 fw-bold">
