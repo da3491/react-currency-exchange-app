@@ -11,21 +11,17 @@ const checkStatus = (response) => {
 const json = (response) => response.json();
 
 const CurrencyConverter = () => {
+  let [amount, setAmount] = useState(1);
   let [currency1, setCurrency1] = useState("USD");
   let [currency2, setCurrency2] = useState("GBP");
-  let [amount, setAmount] = useState(1);
   let [conversionRates, setConversionRates] = useState({});
   let [convertedValue, setConvertedValue] = useState(1);
 
-  useEffect(() => {
-    fetch(`https://altexchangerateapi.herokuapp.com/latest?from=${currency1}`)
-      .then(checkStatus)
-      .then(json)
-      .then((data) => {
-        setConversionRates(data.rates);
-      })
-      .then(getConversion(currency2, amount));
-  }, [currency1, currency2, amount]);
+  const getConversion = (currency2, givenAmount) => {
+    console.log(conversionRates[currency2]);
+    let rate = Number(conversionRates[currency2]);
+    setConvertedValue(givenAmount * rate);
+  };
 
   const switchButton = () => {
     let temp = currency1;
@@ -33,12 +29,18 @@ const CurrencyConverter = () => {
     setCurrency2(temp);
   };
 
-  const getConversion = (currency2, givenAmount = 1) => {
-    // Used in Converter and Table
-    console.log(conversionRates[currency2]);
-    let rate = Number(conversionRates[currency2]);
-    setConvertedValue(givenAmount * rate);
-  };
+  useEffect(() => {
+    fetch(`https://altexchangerateapi.herokuapp.com/latest?from=${currency1}`)
+      .then(checkStatus)
+      .then(json)
+      .then((data) => {
+        setConversionRates(data.rates);
+      });
+  }, [currency1, currency2, amount]);
+
+  useEffect(() => {
+    getConversion(currency2, amount);
+  }, [conversionRates]);
 
   return (
     <div

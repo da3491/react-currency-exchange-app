@@ -20,7 +20,7 @@ const CurrencySelector = (props) => {
       .then((data) => {
         setCurrencies(data.rates);
       });
-  });
+  }, []);
 
   return (
     <select
