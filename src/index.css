@@ -25,14 +25,11 @@ code {
   box-shadow: inset 0px -11px 8px -10px #eee;
 }
 
-<<<<<<< Updated upstream
-#root {
+<<<<<<< Updated upstream #root {
   height: 100vh;
 }
 
-=======
->>>>>>> Stashed changes
-#switch {
+=======>>>>>>>Stashed changes #switch {
   width: 70px;
   background-color: rgb(115, 198, 115);
 }
@@ -110,23 +107,6 @@ input[type="number"] {
   }
 }
 
-<<<<<<< Updated upstream
-/* @media (max-width: 390px) {
-  .fix-table-height {
-    max-height: 30vh;
-  }
-} */
-
-@media (min-width: 1280px) {
-  .fix-table-height {
-    max-height: 100%;
-  }
-}
-
-@media (max-width: 820px) {
-  .fix-table-height {
-    max-height: 60vh;
-=======
 @media (max-width: 376px) {
   .table-responsive {
     max-height: 300px;
@@ -139,9 +119,8 @@ input[type="number"] {
   }
 }
 
-@media (min-width: 860px) {
+@media (min-width: 861px) {
   .table-responsive {
     max-height: 70vh;
->>>>>>> Stashed changes
   }
 }
