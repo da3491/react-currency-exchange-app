@@ -14,6 +14,16 @@ const DataTable = () => {
   let [amount, setAmount] = useState(1);
   let [currency1, setCurrency1] = useState("USD");
   let [conversionRates, setConversionRates] = useState({});
+  let [currencies, setCurrencies] = useState({});
+
+  useEffect(() => {
+    fetch(`https://altexchangerateapi.herokuapp.com/latest`)
+      .then(checkStatus)
+      .then(json)
+      .then((data) => {
+        setCurrencies(data.rates);
+      });
+  }, []);
 
   useEffect(() => {
     fetch(`https://altexchangerateapi.herokuapp.com/latest?from=${currency1}`)
@@ -23,7 +33,7 @@ const DataTable = () => {
         console.log(typeof amount);
         setConversionRates(data.rates);
       });
-  }, [currency1, amount]);
+  }, [currency1]);
 
   return (
     <div id="page-2" className="my-5 container">
@@ -45,6 +55,7 @@ const DataTable = () => {
             id={currency1}
             value={currency1}
             changeCurrency={setCurrency1}
+            currencies={currencies}
           />
         </div>
       </div>
@@ -62,7 +73,7 @@ const DataTable = () => {
               return (
                 <tr className="text-center" key={rate[0]}>
                   <td>{rate[0]}</td>
-                  <td>{rate[1]}</td>
+                  <td>{(rate[1] * amount).toFixed(5) || rate[1]}</td>
                 </tr>
               );
             })}

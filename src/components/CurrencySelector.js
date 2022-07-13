@@ -10,18 +10,8 @@ const checkStatus = (response) => {
 const json = (response) => response.json();
 
 const CurrencySelector = (props) => {
-  const { id, value, changeCurrency } = props;
-  let [currencies, setCurrencies] = useState({});
-
-  useEffect(() => {
-    fetch(`https://altexchangerateapi.herokuapp.com/latest`)
-      .then(checkStatus)
-      .then(json)
-      .then((data) => {
-        setCurrencies(data.rates);
-      });
-  }, []);
-
+  const { id, value, currencies, changeCurrency } = props;
+  
   return (
     <select
       className="form-select col shadow-sm border-0"
