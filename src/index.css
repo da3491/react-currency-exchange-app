@@ -110,6 +110,7 @@ input[type="number"] {
   }
 }
 
+<<<<<<< Updated upstream
 /* @media (max-width: 390px) {
   .fix-table-height {
     max-height: 30vh;
@@ -125,5 +126,22 @@ input[type="number"] {
 @media (max-width: 820px) {
   .fix-table-height {
     max-height: 60vh;
+=======
+@media (max-width: 376px) {
+  .table-responsive {
+    max-height: 300px;
+  }
+}
+
+@media (max-width: 860px) {
+  .table-responsive {
+    max-height: 60vh;
+  }
+}
+
+@media (min-width: 860px) {
+  .table-responsive {
+    max-height: 70vh;
+>>>>>>> Stashed changes
   }
 }
