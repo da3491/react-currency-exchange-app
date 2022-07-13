@@ -60,7 +60,10 @@ const DataTable = () => {
         </div>
       </div>
       {/* Table Section */}
-      <div id="table" className="row bg-light rounded py-3 my-3">
+      <div
+        id="table"
+        className="table-responsive fix-table-height row bg-light rounded py-3 my-3"
+      >
         <table className="table table-striped">
           <thead>
             <tr className="text-center">
