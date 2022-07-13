@@ -16,12 +16,22 @@ const CurrencyConverter = () => {
   let [currency2, setCurrency2] = useState("GBP");
   let [conversionRates, setConversionRates] = useState({});
   let [convertedValue, setConvertedValue] = useState(1);
+  let [currencies, setCurrencies] = useState({});
 
   const getConversion = (currency2, givenAmount) => {
     console.log(conversionRates[currency2]);
     let rate = Number(conversionRates[currency2]);
     setConvertedValue(givenAmount * rate);
   };
+
+  useEffect(() => {
+    fetch(`https://altexchangerateapi.herokuapp.com/latest`)
+      .then(checkStatus)
+      .then(json)
+      .then((data) => {
+        setCurrencies(data.rates);
+      });
+  }, []);
 
   const switchButton = () => {
     let temp = currency1;
@@ -36,11 +46,13 @@ const CurrencyConverter = () => {
       .then((data) => {
         setConversionRates(data.rates);
       });
-  }, [currency1, currency2, amount]);
+  }, [currency1]);
 
   useEffect(() => {
     getConversion(currency2, amount);
-  }, [conversionRates]);
+  }, [conversionRates, amount, currency2]);
+
+  console.log(currency1,currency2)
 
   return (
     <div
@@ -54,6 +66,7 @@ const CurrencyConverter = () => {
             id="currency1"
             value={currency1}
             changeCurrency={setCurrency1}
+            currencies={currencies}
           />
         </div>
         {/* Switch Button */}
@@ -70,6 +83,7 @@ const CurrencyConverter = () => {
             id="currency2"
             value={currency2}
             changeCurrency={setCurrency2}
+            currencies={currencies}
           />
         </div>
       </div>
