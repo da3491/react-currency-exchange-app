@@ -25,11 +25,15 @@ code {
   box-shadow: inset 0px -11px 8px -10px #eee;
 }
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream #root {
   height: 100vh;
 }
 
 =======>>>>>>>Stashed changes #switch {
+=======
+#switch {
+>>>>>>> 786afcf2fbdd02f936771a3b6490fb08984b1bde
   width: 70px;
   background-color: rgb(115, 198, 115);
 }
@@ -73,10 +77,6 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
-/* .animate__animated.animate__fadeInUp {
-  --animate-duration: 0.6s;
-} */
-
 @keyframes pulse-fade {
   0% {
     background-color: rgba(255, 255, 255, 0.632);
@@ -99,6 +99,7 @@ input[type="number"] {
   .container {
     width: 90%;
   }
+<<<<<<< HEAD
 }
 
 @media (max-width: 376px) {
@@ -110,6 +111,10 @@ input[type="number"] {
 @media (max-width: 376px) {
   .table-responsive {
     max-height: 300px;
+=======
+  .table-responsive {
+    max-height: 55vh;
+>>>>>>> 786afcf2fbdd02f936771a3b6490fb08984b1bde
   }
 }
 
@@ -119,8 +124,14 @@ input[type="number"] {
   }
 }
 
+<<<<<<< HEAD
 @media (min-width: 861px) {
   .table-responsive {
     max-height: 70vh;
+=======
+@media (max-width: 376px) {
+  .table-responsive {
+    max-height: 300px;
+>>>>>>> 786afcf2fbdd02f936771a3b6490fb08984b1bde
   }
 }

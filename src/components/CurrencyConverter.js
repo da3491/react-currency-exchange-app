@@ -19,6 +19,7 @@ const CurrencyConverter = () => {
   let [currencies, setCurrencies] = useState({});
 
   const getConversion = (currency2, givenAmount) => {
+    console.log(conversionRates[currency2]);
     let rate = Number(conversionRates[currency2]);
     setConvertedValue(givenAmount * rate);
   };
@@ -50,6 +51,8 @@ const CurrencyConverter = () => {
   useEffect(() => {
     getConversion(currency2, amount);
   }, [conversionRates, amount, currency2]);
+
+  console.log(currency1,currency2)
 
   return (
     <div

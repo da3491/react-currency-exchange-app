@@ -1,0 +1,22 @@
+// const apiData = {
+//   currencies: [],
+// };
+
+// const currencyData = () => {
+//   fetch(`https://altexchangerateapi.herokuapp.com/latest`)
+//     .then(checkStatus)
+//     .then(json)
+//     .then((data) => {
+//       return (apiData.currencies = data.rates);
+//     });
+// };
+
+// currencyData();
+// // fetch(`https://altexchangerateapi.herokuapp.com/latest?from=${givenCurrency}`)
+// //   .then(checkStatus)
+// //   .then(json)
+// //   .then((data) => {
+// //     this.setState({ conversionRates: data.rates });
+// //   });
+
+// export default apiData;

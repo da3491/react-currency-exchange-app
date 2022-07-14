@@ -1,3 +1,14 @@
+import React, { useState, useEffect } from "react";
+
+const checkStatus = (response) => {
+  if (response.ok) {
+    return response;
+  }
+  console.log(response);
+  throw new Error("Request was either a 404 or a 500");
+};
+const json = (response) => response.json();
+
 const CurrencySelector = (props) => {
   const { id, value, currencies, changeCurrency } = props;
 

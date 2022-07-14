@@ -36,26 +36,26 @@ const DataTable = () => {
   }, [currency1]);
 
   return (
-    <div id="page-2" className="my-md-5 container">
+    <div id="page-2" className="my-5 container">
       <div className="row bg-light rounded py-3">
+        {/* Amount Selector */}
+        <form className="row col-md-6 my-2 align-items-center">
+          <label className="col-4 fw-bold text-end text-ali">Amount</label>
+          <input
+            className="col-8 border-0 shadow-sm"
+            type="number"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+          />
+        </form>
         {/* Currency Selector */}
-        <div className="row my-2 px-4 align-items-center">
+        <div className="row col-md-6 my-2 align-items-center">
           <div className="col-4 fw-bold text-end">Currency</div>
           <CurrencySelector
             id={currency1}
             value={currency1}
             changeCurrency={setCurrency1}
             currencies={currencies}
-          />
-        </div>
-        {/* Amount Selector */}
-        <div className="row my-2 px-4 align-items-center">
-          <div className="col-4 fw-bold text-end text-ali">Amount</div>
-          <input
-            className="col border-0 shadow-sm"
-            type="number"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
           />
         </div>
       </div>

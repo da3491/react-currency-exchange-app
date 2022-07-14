@@ -37,24 +37,27 @@ _Development Stages_
 
 _Structure_
 
-1. App
+1. App {holds state, fetch calls, setState functions}
    1. Navbar
       1. Routes
          1. Route path: Convert Tab
          2. Route path: Exchange Rate Tab
    2. Convert Tab
       1. CurrencyConverter
+         1. Selector
+         2. Selector
       2. Graph
    3. Exchange Rate Tab
       1. DataTable
    4. Footer
 
-_Obstacles_
+_Known Issues_
 
-When setting up the routing, I was struggling to set it up, running into various errors until I came to find the docs I was referred to were a version behind.
+1. Exchange Rate Tab does not Update on Amount change, similar useEffect in CurrencyConverter does work though. It is reading the changed value of the input as a string. Does not seem to do anything different if I try to convert it to a Number().
 
-I finally got it functioning once I got a chance to read over the usage. I abstracted my components to the structure I wanted.
+2. Table overflows past end of page, used bootstrap 5's overflow-auto on various container div's in DataTable to fix but does not register any of them. Tried to set a max height on the table and does not work either.
 
+<<<<<<< HEAD
 After getting the routing completed. I fixed up the css a little and added some basic animations to give it some interactivity.
 
 After making a fetch request to get a list of currencies, I was able to pass the state to my components. There is some difficulty in trying to find the selected value and lifting the state up.
@@ -73,3 +76,8 @@ Some things that I still want to do.
 9. Change amount to currency symbol
 10. Change converted total to be a Symbol with numeric value, currency code minified
 11. Add title to page
+=======
+3. On window load, the Amount variable shows in the DOM as NaN, and then loads actual value.
+
+4. No graph functionality yet
+>>>>>>> 786afcf2fbdd02f936771a3b6490fb08984b1bde
