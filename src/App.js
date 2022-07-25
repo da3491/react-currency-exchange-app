@@ -8,33 +8,19 @@ import "./App.css";
 // https://restcountries.com/#api-endpoints-v3-code
 
 // Components
-import NavBar from "./components/NavBar";
+import Layout from "./components/Layout";
 import CurrencyConverter from "./components/CurrencyConverter";
-import DataChart from "./components/DataChart";
 import DataTable from "./components/DataTable";
-import Footer from "./components/Footer";
 
 const App = () => {
-  const ConvertTab = () => {
-    return (
-      <div className="my-5">
-        <CurrencyConverter />
-        <DataChart />
-      </div>
-    );
-  };
-
   return (
-    <div className="container-md">
-      <NavBar />
-      <h2 className="text-center fw-bold my-4">Currency Converter</h2>
+    <Layout>
       <Routes>
-        <Route path="/" element={<ConvertTab to="convert" />}></Route>
-        <Route path="convert" element={<ConvertTab />}></Route>
+        <Route path="/" element={<CurrencyConverter to="convert" />}></Route>
+        <Route path="convert" element={<CurrencyConverter />}></Route>
         <Route path="exchange_rates" element={<DataTable />}></Route>
       </Routes>
-      <Footer />
-    </div>
+    </Layout>
   );
 };
 

@@ -1,14 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { checkStatus, json } from "../utils/fetchUtils";
 import CurrencySelector from "./CurrencySelector";
-
-const checkStatus = (response) => {
-  if (response.ok) {
-    return response;
-  }
-  console.log(response);
-  throw new Error("Request was either a 404 or a 500");
-};
-const json = (response) => response.json();
 
 const DataTable = () => {
   let [amount, setAmount] = useState(1);

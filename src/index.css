@@ -87,6 +87,21 @@ input[type="number"] {
   .container {
     width: 90%;
   }
+<<<<<<< Updated upstream
+=======
+}
+
+@media (max-width: 376px) {
+  .fix-table-height {
+    height: 300px;
+  }
+}
+
+@media (max-width: 376px) {
+  .table-responsive {
+    max-height: 300px;
+  }
+>>>>>>> Stashed changes
   .table-responsive {
     max-height: 55vh;
   }
@@ -98,6 +113,15 @@ input[type="number"] {
   }
 }
 
+<<<<<<< Updated upstream
+=======
+@media (min-width: 861px) {
+  .table-responsive {
+    max-height: 70vh;
+  }
+}
+
+>>>>>>> Stashed changes
 @media (max-width: 376px) {
   .table-responsive {
     max-height: 300px;
