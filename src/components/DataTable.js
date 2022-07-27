@@ -22,7 +22,6 @@ const DataTable = () => {
       .then(checkStatus)
       .then(json)
       .then((data) => {
-        console.log(typeof amount);
         setConversionRates(data.rates);
       });
   }, [currency1]);
@@ -33,7 +32,7 @@ const DataTable = () => {
         <div className="row bg-light rounded py-3">
           <div className="row col-md-6 my-2 align-items-center">
             <div className="col-4 fw-bold text-end">Currency</div>
-            <CurrencySelector />
+            <CurrencySelector onChange={(e) => setCurrency1(e.target.value)} />
           </div>
           <div className="row col-md-6 my-2 align-items-center">
             <div className="col-4 fw-bold text-end text-ali">Amount</div>

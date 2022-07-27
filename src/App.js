@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 
-// additional APIS
+// APIS
 // https://www.frankfurter.app/docs/
 // https://www.chartjs.org/docs/latest/getting-started/
 // https://restcountries.com/#api-endpoints-v3-code

@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { checkStatus, json } from "../utils/fetchUtils";
 import currencies from "../utils/currencies";
-
-// Components
 import CurrencySelector from "./CurrencySelector";
 import DataChart from "./DataChart";
 
