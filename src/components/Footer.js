@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <div id="footer" className="bg-design shadow-sm pt-3">
+    <div id="footer" className="bg-design fixed-bottom shadow-sm pt-3 vw-100">
       <div className="d-flex justify-content-center mx-auto">
         <a href="https://github.com/da3491">
           <i className="fa-brands fa-github h2 text-dark mx-2"></i>

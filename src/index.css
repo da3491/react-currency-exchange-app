@@ -95,6 +95,18 @@ input[type="number"] {
   .container {
     width: 90%;
   }
+}
+
+@media (max-width: 376px) {
+  .fix-table-height {
+    height: 300px;
+  }
+}
+
+@media (max-width: 376px) {
+  .table-responsive {
+    max-height: 300px;
+  }
   .table-responsive {
     max-height: 55vh;
   }
@@ -103,6 +115,12 @@ input[type="number"] {
 @media (max-width: 860px) {
   .table-responsive {
     max-height: 60vh;
+  }
+}
+
+@media (min-width: 861px) {
+  .table-responsive {
+    max-height: 70vh;
   }
 }
 

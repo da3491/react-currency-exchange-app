@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { checkStatus, json } from "../utils/fetchUtils";
-
-// Component
 import CurrencySelector from "./CurrencySelector";
 
 const DataTable = () => {

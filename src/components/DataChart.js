@@ -1,13 +1,23 @@
-// import Chart from "chart.js/auto";
+import "chart.js/auto";
+import { Line } from "react-chartjs-2";
 
-// const ctx = document.getElementById("#chart");
-// const myChart = new Chart(ctx, {});
-
-const DataChart = (props) => {
-  console.log(props);
+const DataChart = ({ historicalData }) => {
+  let { chartData, chartLabel, chartLabels } = historicalData;
   return (
-    <div className="container bg-light rounded my-3 shadow-lg">
-      <canvas id="chart" width="325"></canvas>
+    <div>
+      <Line
+        data={{
+          labels: chartLabels,
+          datasets: [
+            {
+              label: chartLabel,
+              data: chartData,
+              fill: false,
+              tension: 0,
+            },
+          ],
+        }}
+      />
     </div>
   );
 };
