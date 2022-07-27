@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { checkStatus, json } from "../utils/fetchUtils";
 import currencies from "../utils/currencies";
+
+// Components
 import CurrencySelector from "./CurrencySelector";
 import DataChart from "./DataChart";
 
@@ -12,39 +14,39 @@ const CurrencyConverter = () => {
   let [convertedValue, setConvertedValue] = useState(1);
   let [historicalData, setHistoricalData] = useState({});
 
-  const getHistoricalRates = (currency1, currency2) => {
-    const endDate = new Date().toISOString().split("T")[0];
-    const startDate = new Date(new Date().getTime() - 30 * 24 * 60 * 60 * 1000)
-      .toISOString()
-      .split("T")[0];
-    fetch(
-      `https://altexchangerateapi.herokuapp.com/${startDate}..${endDate}?from${currency1}to=${currency2}`
-    )
-      .then(checkStatus)
-      .then(json)
-      .then((data) => {
-        const chartLabels = Object.keys(data.rates);
-        const chartData = Object.values(data.rates).map(
-          (rate) => rate[currency2]
-        );
-        const chartLabel = `${currency1}/${currency2}`;
-        const historicalData = { chartLabels, chartData, chartLabel };
-        console.log(historicalData);
-        // buildChart(chartLabels, chartData, chartLabel);
-        setHistoricalData(historicalData);
-      })
-      .catch((error) => console.log(error.message));
-  };
-
-  const getConversion = (currency2, givenAmount) => {
+  const getConversion = () => {
     let rate = Number(conversionRates[currency2]);
-    setConvertedValue(givenAmount * rate);
+    setConvertedValue(amount * rate);
   };
 
   const switchButton = () => {
     let temp = currency1;
     setCurrency1(currency2);
     setCurrency2(temp);
+  };
+
+  const getHistoricalRates = () => {
+    const endDate = new Date().toISOString().split("T")[0];
+    const startDate = new Date(new Date().getTime() - 30 * 24 * 60 * 60 * 1000)
+      .toISOString()
+      .split("T")[0];
+    fetch(
+      `https://altexchangerateapi.herokuapp.com/${startDate}..${endDate}?from=${currency1}&to=${currency2}`
+    )
+      .then(checkStatus)
+      .then(json)
+      .then((data) => {
+        if (data.error) {
+          throw new Error(data.error);
+        }
+        const chartLabels = Object.keys(data.rates);
+        const chartData = Object.values(data.rates).map(
+          (rate) => rate[currency2]
+        );
+        const chartLabel = `${currency1}/${currency2}`;
+        setHistoricalData({ chartLabels, chartData, chartLabel });
+      })
+      .catch((error) => console.error(error.message));
   };
 
   useEffect(() => {
@@ -57,12 +59,11 @@ const CurrencyConverter = () => {
   }, [currency1]);
 
   useEffect(() => {
-    getConversion(currency2, amount);
+    getConversion(amount);
   }, [conversionRates, amount, currency2]);
 
-  // Change in currency will fetch data for chart and update state
   useEffect(() => {
-    getHistoricalRates(currency1, currency2);
+    getHistoricalRates();
   }, [currency1, currency2]);
 
   return (
@@ -100,7 +101,6 @@ const CurrencyConverter = () => {
         </div>
         <hr className="my-4" />
         {/* Section for Amount Input */}
-
         <div className="d-flex flex-column flex-md-row justify-content-center fw-bold text-center text-dark">
           <form className="d-flex align-items-center mb-3">
             <label className="col-3 h3 form-label">

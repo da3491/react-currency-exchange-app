@@ -1,44 +1,23 @@
-import React, { useEffect, useRef } from "react";
-import Chart from "chart.js/auto";
+import "chart.js/auto";
+import { Line } from "react-chartjs-2";
 
 const DataChart = ({ historicalData }) => {
-  // compared to this.chartRef = React.createRef()
-  const chartRef = useRef(null);
-
-  useEffect(() => {
-    buildChart(historicalData);
-  }, [historicalData]);
-
-  const buildChart = ({ data, label, labels }) => {
-    // compared to const chartRef = this.chartRef.current.getContext('2d');
-    const currentRef = chartRef.current.getContext("2d");
-
-    const chart = new Chart(currentRef, {
-      type: "line",
-      data: {
-        labels,
-        datasets: [
-          {
-            label: label,
-            data,
-            fill: false,
-            tension: 0,
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-      },
-    });
-    // Put after initialization of chart, throws error when before
-    if (typeof chart !== "undefined") {
-      chart.destroy();
-    }
-  };
-
+  let { chartData, chartLabel, chartLabels } = historicalData;
   return (
     <div>
-      <canvas id="chart" ref={chartRef}></canvas>
+      <Line
+        data={{
+          labels: chartLabels,
+          datasets: [
+            {
+              label: chartLabel,
+              data: chartData,
+              fill: false,
+              tension: 0,
+            },
+          ],
+        }}
+      />
     </div>
   );
 };
