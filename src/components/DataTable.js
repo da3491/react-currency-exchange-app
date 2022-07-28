@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { checkStatus, json } from "../utils/fetchUtils";
+
 import CurrencySelector from "./CurrencySelector";
 
 const DataTable = () => {
@@ -32,11 +33,20 @@ const DataTable = () => {
         <div className="row bg-light rounded py-3">
           <div className="row col-md-6 my-2 align-items-center">
             <div className="col-4 fw-bold text-end">Currency</div>
-            <CurrencySelector onChange={(e) => setCurrency1(e.target.value)} />
+            <CurrencySelector
+              id={currency1}
+              value={currency1}
+              changeCurrency={setCurrency1}
+              currencies={currencies}
+            />
           </div>
           <div className="row col-md-6 my-2 align-items-center">
             <div className="col-4 fw-bold text-end text-ali">Amount</div>
-            <input className="col-8 border-0 shadow-sm" type="number" />
+            <input
+              className="col-8 border-0 shadow-sm"
+              type="number"
+              onChange={(e) => setAmount(e.target.value)}
+            />
           </div>
         </div>
       </div>
@@ -54,7 +64,7 @@ const DataTable = () => {
                 return (
                   <tr className="text-center" key={item}>
                     <td>{item[0]}</td>
-                    <td>{item[1]}</td>
+                    <td>{(item[1] * amount).toFixed(5) || item[1]}</td>
                   </tr>
                 );
               })}

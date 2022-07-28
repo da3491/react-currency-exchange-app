@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { checkStatus, json } from "../utils/fetchUtils";
 import currencies from "../utils/currencies";
+
 import CurrencySelector from "./CurrencySelector";
 import DataChart from "./DataChart";
 
@@ -99,22 +100,22 @@ const CurrencyConverter = () => {
         </div>
         <hr className="my-4" />
         {/* Section for Amount Input */}
-        <div className="d-flex flex-column flex-md-row justify-content-center fw-bold text-center text-dark">
-          <form className="d-flex align-items-center mb-3">
-            <label className="col-3 h3 form-label">
+        <div className="d-flex align-items-center justify-content-center fw-bold text-center text-dark mx-auto">
+          <form className="fixed-width">
+            <label className="h3 form-label mx-2">
               {currencies[currency1].symbol}
             </label>
             <input
-              className="col-6 border-0 shadow-sm text-center px-3 fs-4"
+              className="border-0 rounded shadow-sm text-center fs-4"
               type="number"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
             />
           </form>
-          <div className="d-flex justify-content-center h2 fw-bold">
-            <span className="fs-2 fw-bold">=</span>
+          <i className="fixed-width fa-solid fa-arrow-right fs-3 text-success"></i>
+          <div className="fixed-width h2 fw-bold">
             <span className="mx-2">{currencies[currency2].symbol}</span>
-            <span>{convertedValue.toFixed(4)}</span>
+            <span>{convertedValue ? convertedValue.toFixed(2) : "..."}</span>
           </div>
         </div>
       </div>

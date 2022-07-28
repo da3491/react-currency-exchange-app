@@ -25,6 +25,10 @@ code {
   box-shadow: inset 0px -11px 8px -10px #eee;
 }
 
+.fixed-width {
+  width: 20%;
+}
+
 #root {
   height: 100vh;
 }
@@ -55,6 +59,10 @@ ul.nav-tabs li.nav-link:active {
 select,
 input {
   height: 40px;
+}
+
+form input {
+  width: 75px;
 }
 
 .table-responsive {
