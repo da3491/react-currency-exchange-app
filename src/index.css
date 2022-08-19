@@ -25,6 +25,14 @@ code {
   box-shadow: inset 0px -11px 8px -10px #eee;
 }
 
+.fixed-width {
+  width: 20%;
+}
+
+#root {
+  height: 100vh;
+}
+
 #switch {
   width: 70px;
   background-color: rgb(115, 198, 115);
@@ -51,6 +59,14 @@ ul.nav-tabs li.nav-link:active {
 select,
 input {
   height: 40px;
+}
+
+form input {
+  width: 75px;
+}
+
+.table-responsive {
+  max-height: 60vh;
 }
 
 /* Chrome, Safari, Edge, Opera */
