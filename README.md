@@ -1,3 +1,5 @@
+This was a project for Altcademy
+
 _Basic Requirements_
 
 1. A list/table showing exchange rates for a base currency against a list of currencies:
@@ -50,34 +52,3 @@ _Structure_
    3. Exchange Rate Tab
       1. DataTable
    4. Footer
-
-_Known Issues_
-
-1. Exchange Rate Tab does not Update on Amount change, similar useEffect in CurrencyConverter does work though. It is reading the changed value of the input as a string. Does not seem to do anything different if I try to convert it to a Number().
-
-2. Table overflows past end of page, used bootstrap 5's overflow-auto on various container div's in DataTable to fix but does not register any of them. Tried to set a max height on the table and does not work either.
-
-<<<<<<< HEAD
-After getting the routing completed. I fixed up the css a little and added some basic animations to give it some interactivity.
-
-After making a fetch request to get a list of currencies, I was able to pass the state to my components. There is some difficulty in trying to find the selected value and lifting the state up.
-
-It took me a bit to figure out how bubbling state is done, but once I did I got a few of the components working.
-Some things that I still want to do.
-
-1. Chart Feature
-2. Connect hrefs to footer icons
-3. Button animation
-4. Autoload on exchange rate tab Amount = 1 Currency = USD
-5. DataTable Sort Buttons
-6. Flag images for currency icons
-7. Load component animations
-8. Change tabs to single page on lg screens
-9. Change amount to currency symbol
-10. Change converted total to be a Symbol with numeric value, currency code minified
-11. Add title to page
-=======
-3. On window load, the Amount variable shows in the DOM as NaN, and then loads actual value.
-
-4. No graph functionality yet
->>>>>>> 786afcf2fbdd02f936771a3b6490fb08984b1bde
