@@ -58,7 +58,7 @@ const CurrencyConverter = () => {
   }, [currency1]);
 
   useEffect(() => {
-    getConversion(amount);
+    getConversion();
   }, [conversionRates, amount, currency2]);
 
   useEffect(() => {
